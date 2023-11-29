@@ -1,8 +1,6 @@
-public class RealtorBuilder implements IListingBuilder {
+ public class RealtorBuilder implements IListingBuilder {
 
     private Listing listing;
-    private String rawListing;
-
     public RealtorBuilder(String rawListing) {
         this.listing = new Listing();
         this.setRawListing(rawListing);
@@ -32,9 +30,10 @@ public class RealtorBuilder implements IListingBuilder {
     public void setAddress() {
         this.listing.setAddress("Realtor Address");
     }
+
     @Override
     public void setUrl() {
-        this.listing.setUrl(null);
+        this.listing.setUrl("");
     }
 
     @Override
@@ -54,7 +53,7 @@ public class RealtorBuilder implements IListingBuilder {
 
     @Override
     public void setRawListing(String rawListing) {
-        this.rawListing = rawListing;
+        this.listing.setRawListing(rawListing);
     }
 
     @Override

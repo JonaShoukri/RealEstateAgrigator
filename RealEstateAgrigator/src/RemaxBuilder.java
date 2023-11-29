@@ -1,11 +1,10 @@
 public class RemaxBuilder implements IListingBuilder {
 
     private Listing listing;
-    private String rawListing;
 
     public RemaxBuilder(String rawListing) {
         this.listing = new Listing();
-        this.setRawListing(rawListing);
+        this.listing.setRawListing(rawListing);
     }
 
     @Override
@@ -35,7 +34,7 @@ public class RemaxBuilder implements IListingBuilder {
 
     @Override
     public void setUrl() {
-        this.listing.setUrl(null);
+        this.listing.setUrl("");
     }
 
     @Override
@@ -55,7 +54,7 @@ public class RemaxBuilder implements IListingBuilder {
 
     @Override
     public void setRawListing(String rawListing) {
-        this.rawListing = rawListing;
+        this.listing.setRawListing(rawListing);
     }
 
     @Override

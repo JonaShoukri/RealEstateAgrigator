@@ -1,7 +1,6 @@
 public class CentrisBuilder implements IListingBuilder {
 
     private Listing listing;
-    private String rawListing;
 
     public CentrisBuilder(String rawListing) {
         this.listing = new Listing();
@@ -34,7 +33,7 @@ public class CentrisBuilder implements IListingBuilder {
     }
     @Override
     public void setUrl() {
-        this.listing.setUrl(null);
+        this.listing.setUrl("");
     }
 
     @Override
@@ -54,7 +53,7 @@ public class CentrisBuilder implements IListingBuilder {
 
     @Override
     public void setRawListing(String rawListing) {
-        this.rawListing = rawListing;
+        this.listing.setRawListing(rawListing);
     }
 
     @Override
