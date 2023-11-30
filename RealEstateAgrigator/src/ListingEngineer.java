@@ -5,13 +5,13 @@ public class ListingEngineer {
     }
     public void build() {
         builder.setId();
+        builder.setUrl();
         builder.setAddress();
         builder.setSite();
         builder.setPrice();
         builder.setSqft();
         builder.setNumBathrooms();
         builder.setNumBedrooms();
-        builder.setUrl();
         builder.setType();
         builder.setSite();
     }

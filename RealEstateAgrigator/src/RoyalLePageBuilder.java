@@ -1,3 +1,7 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 public class RoyalLePageBuilder implements IListingBuilder {
 
     private Listing listing;
@@ -14,7 +18,10 @@ public class RoyalLePageBuilder implements IListingBuilder {
 
     @Override
     public void setType() {
-        this.listing.setType("RoyalLePageListings");
+        Document doc = Jsoup.parse(this.listing.getRawListing());
+        Element listingMeta = doc.selectFirst("div.listing-meta span");
+
+        this.listing.setType((listingMeta != null) ? listingMeta.text() : "Type not found");
     }
 
     @Override
@@ -22,34 +29,44 @@ public class RoyalLePageBuilder implements IListingBuilder {
         this.listing.setSite(Site.RoyalLePage);
     }
 
+
+    @Override
+    public void setAddress() {
+        this.listing.setAddress("RoyalLePage Address");
+        Document document = Jsoup.parse(this.listing.getRawListing());
+        Element addressElement = document.selectFirst("address[class=address-1] a");
+        this.listing.setAddress(addressElement != null ? addressElement.text() : "Address not found");
+    }
+
+    @Override
+    public void setUrl() {
+        Document doc = Jsoup.parse(this.listing.getRawListing());
+        Element linkElement = doc.select("div.card__body address.address-1 a").first();
+        this.listing.setUrl(linkElement.attr("href"));
+    }
+
+    @Override
+    public void setNumBedrooms() { this.listing.setNumBedrooms(0);}
+
+    @Override
+    public void setNumBathrooms() { this.listing.setNumBathrooms(0);}
+
     @Override
     public void setSqft() {
         this.listing.setSqft(0.0);
     }
 
     @Override
-    public void setAddress() {
-        this.listing.setAddress("RoyalLePage Address");
-    }
-
-    @Override
-    public void setUrl() {
-        this.listing.setUrl("");
-    }
-
-    @Override
-    public void setNumBedrooms() {
-        this.listing.setNumBedrooms(0);
-    }
-
-    @Override
-    public void setNumBathrooms() {
-        this.listing.setNumBathrooms(0);
-    }
-
-    @Override
     public void setPrice() {
-        this.listing.setPrice(0.0);
+        Document doc = Jsoup.parse(this.listing.getRawListing());
+        Element priceElement = doc.selectFirst("span.title--h3.price");
+
+        if (priceElement != null) {
+            String priceText = priceElement.text().replaceAll("[^\\d,]", "").replace(",", "");
+            this.listing.setPrice(Double.parseDouble(priceText));
+        } else {
+            this.listing.setPrice(0.0);
+        }
     }
 
     @Override
