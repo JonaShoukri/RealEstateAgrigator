@@ -13,10 +13,27 @@ public class ListingFactory {
         ArrayList<String> html = null;
 
         switch(site){
-            case Remax:
+            case RoyalLePage:
                 html = new ArrayList<String>();
                 listings = new ArrayList<Listing>();
 
+                try {
+                    Document document = Jsoup.connect("https://www.royallepage.ca/en/qc/montreal/properties/").get();
+                    Elements cardWrapperDivs = document.select("div.card.card--listing-card.js-listing.js-property-details");
+
+                    for (Element cardWrapper : cardWrapperDivs) {
+                        html.add(cardWrapper.outerHtml());
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                for (String s : html) {
+                    eng = new ListingEngineer(new RoyalLePageBuilder(s));
+                    eng.build();
+                    listings.add(eng.getListing());
+                }
                 break;
             case Centris:
                 html = new ArrayList<String>();
@@ -35,20 +52,20 @@ public class ListingFactory {
                 }
 
                 for (String s : html) {
-                    eng = new ListingEngineer(new RemaxBuilder(s));
+                    eng = new ListingEngineer(new CentrisBuilder(s));
                     eng.build();
                     listings.add(eng.getListing());
                 }
 
                 break;
 
-            case Realtor:
+            case DuProprio:
                 html = new ArrayList<String>();
                 listings = new ArrayList<Listing>();
 
                 try {
-                    Document document = Jsoup.connect("https://www.houseful.ca/for-sale/").get();
-                    Elements cardWrapperDivs = document.select("div.card-base-info");
+                    Document document = Jsoup.connect("https://duproprio.com/en/montreal").get();
+                    Elements cardWrapperDivs = document.select("div.search-results-listings-list__item-info-container");
 
                     for (Element cardWrapper : cardWrapperDivs) {
                         html.add(cardWrapper.outerHtml());
@@ -59,10 +76,9 @@ public class ListingFactory {
                 }
 
                 for (String s : html) {
-                    System.out.println(s);
-//                    eng = new ListingEngineer(new RemaxBuilder(s));
-//                    eng.build();
-//                    listings.add(eng.getListing());
+                    eng = new ListingEngineer(new DuProprioBuilder(s));
+                    eng.build();
+                    listings.add(eng.getListing());
                 }
                 break;
         }

@@ -1,8 +1,8 @@
-public class RemaxBuilder implements IListingBuilder {
+public class RoyalLePageBuilder implements IListingBuilder {
 
     private Listing listing;
 
-    public RemaxBuilder(String rawListing) {
+    public RoyalLePageBuilder(String rawListing) {
         this.listing = new Listing();
         this.listing.setRawListing(rawListing);
     }
@@ -14,12 +14,12 @@ public class RemaxBuilder implements IListingBuilder {
 
     @Override
     public void setType() {
-        this.listing.setType("Remax");
+        this.listing.setType("RoyalLePageListings");
     }
 
     @Override
     public void setSite() {
-        this.listing.setSite(Site.Remax);
+        this.listing.setSite(Site.RoyalLePage);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class RemaxBuilder implements IListingBuilder {
 
     @Override
     public void setAddress() {
-        this.listing.setAddress("Remax Address");
+        this.listing.setAddress("RoyalLePage Address");
     }
 
     @Override

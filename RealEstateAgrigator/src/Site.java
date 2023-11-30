@@ -1,3 +1,3 @@
 public enum Site {
-    Remax, Centris, Realtor
+    RoyalLePage, Centris, DuProprio
 }
