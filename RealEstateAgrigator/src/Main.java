@@ -5,14 +5,17 @@ public class Main {
     public static void main(String[] args) {
 
         // get RoyalLePage Listings
-        ArrayList<Listing> RoyalLePageListings = ListingFactory.get(Site.RoyalLePage);
-        System.out.println(RoyalLePageListings.get(0).getUrl());
-        System.out.println(RoyalLePageListings.size());
+//        ArrayList<Listing> RoyalLePageListings = ListingFactory.get(Site.RoyalLePage);
+//
+//        for (Listing listing: RoyalLePageListings) {
+//            System.out.println(listing);
+//        }
 
         //get DuProprio Listings
-//        ArrayList<Listing> duproprioListings = ListingFactory.get(Site.DuProprio);
-//        System.out.println(duproprioListings.get(0));
-//        System.out.println(duproprioListings.size());
+        ArrayList<Listing> duproprioListings = ListingFactory.get(Site.DuProprio);
+        for (Listing l : duproprioListings) {
+            System.out.println(l);
+        }
 
         //get Centris Listings
 //        ArrayList<Listing> centrisListings = ListingFactory.get(Site.Centris);

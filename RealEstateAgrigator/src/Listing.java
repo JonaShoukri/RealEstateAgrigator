@@ -46,7 +46,6 @@ public class Listing {
             "URL: " + getUrl() + "\n" +
             "Bedrooms: " + getNumBedrooms() + "\n" +
             "Bathrooms: " + getNumBathrooms() + "\n" +
-            "Price: " + getPrice() + "\n" +
-                "Raw Listing: " + getRawListing() + "\n";
+            "Price: " + getPrice() + "\n";
     }
 }

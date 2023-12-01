@@ -1,4 +1,9 @@
- public class DuProprioBuilder implements IListingBuilder {
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class DuProprioBuilder implements IListingBuilder {
 
     private Listing listing;
     public DuProprioBuilder(String rawListing) {
@@ -13,7 +18,7 @@
 
     @Override
     public void setType() {
-        this.listing.setType("DuProprio");
+        this.listing.setType("N/A");
     }
 
     @Override
@@ -23,12 +28,26 @@
 
     @Override
     public void setSqft() {
-        this.listing.setSqft(0.0);
+        Document document = Jsoup.parse(this.listing.getRawListing());
+        Element sqFootageElement = document.select(".search-results-listings-list__item-description__characteristics-popover:contains(Living space area)").first();
+
+        if (sqFootageElement != null) {
+            String sqFootageText = sqFootageElement.nextElementSibling().text();
+            try {
+                this.listing.setSqft(Double.parseDouble(sqFootageText.replace(",", "").replace(" ft²", "")));
+            } catch (NumberFormatException e) {
+                // Handle parsing error if needed
+            }
+        } else {
+            this.listing.setSqft(0.0);
+        }
     }
 
     @Override
     public void setAddress() {
-        this.listing.setAddress("DuProprio Address");
+        Document document = Jsoup.parse(this.listing.getRawListing());
+        Element addressElement = document.select(".search-results-listings-list__item-description__address").first();
+        this.listing.setAddress(addressElement.text().trim());
     }
 
     @Override
@@ -48,7 +67,10 @@
 
     @Override
     public void setPrice() {
-        this.listing.setPrice(0.0);
+        Document doc = Jsoup.parse(this.listing.getRawListing());
+        Element priceElement = doc.select(".search-results-listings-list__item-description__price h2").first();
+        String priceString = priceElement.text().replace("$", "").replace(",", "");
+        this.listing.setPrice(Double.parseDouble(priceString));
     }
 
     @Override
