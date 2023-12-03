@@ -1,6 +1,9 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.Objects;
 
 public class RoyalLePageBuilder implements IListingBuilder {
 
@@ -46,10 +49,28 @@ public class RoyalLePageBuilder implements IListingBuilder {
     }
 
     @Override
-    public void setNumBedrooms() { this.listing.setNumBedrooms(0);}
+    public void setNumBedrooms() {
+        Document doc = Jsoup.parse(this.listing.getRawListing());
+        Elements listingMeta = doc.select("div.listing-meta span");
+        String result = (listingMeta.size() > 1) ? listingMeta.get(1).text() : "Type not found";
+
+        if (Objects.equals(result, "Type not found")) {
+            this.listing.setNumBedrooms(0);
+            this.listing.setNumBathrooms(0);
+        } else {
+            String[] parts = result.split("\\s*,\\s*");
+            for (String part : parts) {
+                if (part.contains("bds")) {
+                    this.listing.setNumBedrooms(Integer.parseInt(part.replaceAll("\\D+", "")));
+                } else if (part.contains("bath") || part.contains("bed")) {
+                    this.listing.setNumBathrooms(Integer.parseInt(part.replaceAll("\\D+", "")));
+                }
+            }
+        }
+    }
 
     @Override
-    public void setNumBathrooms() { this.listing.setNumBathrooms(0);}
+    public void setNumBathrooms() { } // on this site it is done in the setNumBedrooms method
 
     @Override
     public void setSqft() {

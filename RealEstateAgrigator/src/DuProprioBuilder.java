@@ -3,6 +3,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class DuProprioBuilder implements IListingBuilder {
 
     private Listing listing;
@@ -52,17 +58,40 @@ public class DuProprioBuilder implements IListingBuilder {
 
     @Override
     public void setUrl() {
-        this.listing.setUrl("");
+        Document doc = Jsoup.parse(this.listing.getRawListing());
+        Element link = doc.selectFirst("a[href]");
+        this.listing.setUrl(link.attr("href"));
     }
 
     @Override
     public void setNumBedrooms() {
-        this.listing.setNumBedrooms(0);
+        Document doc = Jsoup.parse(this.listing.getRawListing());
+        Element bedroomsElement = doc.select(".search-results-listings-list__item-description__characteristics-popover:contains(Bedrooms)").first();
+        String bedroomsText = bedroomsElement.nextSibling().toString().trim();
+        this.listing.setNumBedrooms(Integer.parseInt(bedroomsText));
     }
 
     @Override
     public void setNumBathrooms() {
-        this.listing.setNumBathrooms(0);
+        Pattern pattern = Pattern.compile("<div class=\"search-results-listings-list__item-description__characteristics-popover\">\\s*Bathrooms \\+ Half baths\\s*<\\/div>\\s*(\\d+|\\d+\\s*\\+\\s*\\d+)");
+        Matcher matcher = pattern.matcher(this.listing.getRawListing());
+
+        if (matcher.find()) {
+            this.listing.setNumBathrooms(evaluateBathroomValue(matcher.group(1)));
+        } else {
+            this.listing.setNumBathrooms(-1);
+        }
+    }
+
+    private static int evaluateBathroomValue(String value) {
+        String[] parts = value.split("\\+");
+        if (parts.length == 1) {
+            return Integer.parseInt(parts[0].trim());
+        } else {
+            int firstValue = Integer.parseInt(parts[0].trim());
+            int secondValue = Integer.parseInt(parts[1].trim());
+            return firstValue + secondValue;
+        }
     }
 
     @Override

@@ -65,7 +65,7 @@ public class ListingFactory {
 
                 try {
                     Document document = Jsoup.connect("https://duproprio.com/en/montreal").get();
-                    Elements cardWrapperDivs = document.select("div.search-results-listings-list__item-info-container");
+                    Elements cardWrapperDivs = document.select("div.search-results-listings-list__container");
 
                     for (Element cardWrapper : cardWrapperDivs) {
                         html.add(cardWrapper.outerHtml());
