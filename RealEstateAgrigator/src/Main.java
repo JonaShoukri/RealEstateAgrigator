@@ -1,28 +1,25 @@
-import java.lang.reflect.Array;
+import com.mongodb.client.MongoClient;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-
-        // get RoyalLePage Listings
-        //DONE
+        // Get all available listings
         ArrayList<Listing> RoyalLePageListings = ListingFactory.get(Site.RoyalLePage);
-        for (Listing listing: RoyalLePageListings) {
-            System.out.println(listing + "\n");
-        }
-
-        //get DuProprio Listings
-        // DONE
         ArrayList<Listing> duproprioListings = ListingFactory.get(Site.DuProprio);
-        for (Listing l : duproprioListings) {
-            System.out.println(l + "\n");
-        }
-
-        //get Centris Listings
-        //DONE
         ArrayList<Listing> centrisListings = ListingFactory.get(Site.Centris);
-        for (Listing l : centrisListings) {
-            System.out.println(l + "\n");
-        }
+
+        // Verify Mongo connection
+        MongoDataLayer.check();
+
+        // Delete all current listings in Collection
+        MongoDataLayer.deleteAllListings();
+
+        // Add all newly obtained listings
+        MongoDataLayer.addListingsToDatabase(RoyalLePageListings);
+        MongoDataLayer.addListingsToDatabase(duproprioListings);
+        MongoDataLayer.addListingsToDatabase(centrisListings);
+
+        // Check amount of listing received to make sure i got the same amount in MongoDB
+        System.out.println(RoyalLePageListings.size() + duproprioListings.size() + centrisListings.size());
     }
 }
