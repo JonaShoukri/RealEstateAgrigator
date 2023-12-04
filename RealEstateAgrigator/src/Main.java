@@ -5,23 +5,24 @@ public class Main {
     public static void main(String[] args) {
 
         // get RoyalLePage Listings
+        //DONE
         ArrayList<Listing> RoyalLePageListings = ListingFactory.get(Site.RoyalLePage);
-
         for (Listing listing: RoyalLePageListings) {
             System.out.println(listing + "\n");
         }
 
         //get DuProprio Listings
         // DONE
-//        ArrayList<Listing> duproprioListings = ListingFactory.get(Site.DuProprio);
-//        System.out.println(duproprioListings.size());
-//        for (Listing l : duproprioListings) {
-//            System.out.println(l + "\n");
-//        }
+        ArrayList<Listing> duproprioListings = ListingFactory.get(Site.DuProprio);
+        for (Listing l : duproprioListings) {
+            System.out.println(l + "\n");
+        }
 
         //get Centris Listings
-//        ArrayList<Listing> centrisListings = ListingFactory.get(Site.Centris);
-//        System.out.println(centrisListings.get(0));
-//        System.out.println(centrisListings.size());
+        //DONE
+        ArrayList<Listing> centrisListings = ListingFactory.get(Site.Centris);
+        for (Listing l : centrisListings) {
+            System.out.println(l + "\n");
+        }
     }
 }

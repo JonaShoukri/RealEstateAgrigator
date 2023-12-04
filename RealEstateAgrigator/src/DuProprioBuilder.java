@@ -40,9 +40,10 @@ public class DuProprioBuilder implements IListingBuilder {
         if (sqFootageElement != null) {
             String sqFootageText = sqFootageElement.nextElementSibling().text();
             try {
-                this.listing.setSqft(Double.parseDouble(sqFootageText.replace(",", "").replace(" ft²", "")));
+                double sqft = Double.parseDouble(sqFootageText.replace(",", "").replace(" ft²", ""));
+                this.listing.setSqft(sqft);
             } catch (NumberFormatException e) {
-                // Handle parsing error if needed
+                this.listing.setSqft(0.0);
             }
         } else {
             this.listing.setSqft(0.0);
