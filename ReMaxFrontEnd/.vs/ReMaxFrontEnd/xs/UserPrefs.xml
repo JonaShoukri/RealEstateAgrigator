@@ -1,0 +1,35 @@
+﻿<Properties StartupConfiguration="{EE7CCAA6-AC4D-48F0-A537-328B751BE042}|https">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ReMaxFrontEnd/Pages/LandTrasferCalculator.razor">
+    <Files>
+      <File FileName="ReMaxFrontEnd/Pages/Listings.razor" Line="1" Column="18" />
+      <File FileName="ReMaxFrontEnd/Pages/Index.razor" Line="16" Column="2" />
+      <File FileName="ReMaxFrontEnd/Shared/NavMenu.razor" Line="18" Column="57" />
+      <File FileName="ReMaxFrontEnd/Shared/SurveyPrompt.razor" />
+      <File FileName="ReMaxFrontEnd/Pages/FetchData.razor" Line="14" Column="2" />
+      <File FileName="ReMaxFrontEnd/Pages/Counter.razor" Line="10" Column="1" />
+      <File FileName="ReMaxFrontEnd/Shared/MainLayout.razor" Line="1" Column="1" />
+      <File FileName="ReMaxFrontEnd/Pages/Calculators.razor" Line="1" Column="20" />
+      <File FileName="ReMaxFrontEnd/Pages/MortgageCalculator.razor" Line="5" Column="26" />
+      <File FileName="ReMaxFrontEnd/Pages/LandTrasferCalculator.razor" Line="33" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ReMaxFrontEnd" expanded="True">
+            <Node name="ReMaxFrontEnd" expanded="True" selected="True">
+              <Node name="Pages" expanded="True" />
+              <Node name="Shared" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.ReMaxFrontEnd PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MultiItemStartupConfigurations />
+</Properties>

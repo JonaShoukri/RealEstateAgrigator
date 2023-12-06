@@ -35,9 +35,8 @@ public class MongoDataLayer {
 
             List<Document> listingDocuments = new ArrayList<>();
             for (Listing listing : listings) {
-                Document listingDocument = new Document("id", listing.getId())
-                        .append("type", listing.getType())
-                        .append("site", new Document("name", listing.getSite()).append("url", listing.getUrl()))
+                Document listingDocument = new Document("type", listing.getType())
+                        .append("site", listing.getSite())
                         .append("sqft", listing.getSqft())
                         .append("address", listing.getAddress())
                         .append("url", listing.getUrl())
